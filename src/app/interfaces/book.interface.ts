@@ -1,0 +1,16 @@
+export interface IUser {
+  title: string;
+  author: string;
+  genre:
+    | 'FICTION'
+    | 'NON_FICTION'
+    | 'SCIENCE'
+    | 'HISTORY'
+    | 'BIOLOGY'
+    | 'FANTASY';
+
+  isbn: string;
+  description: string;
+  copies: number;
+  available: boolean;
+}
