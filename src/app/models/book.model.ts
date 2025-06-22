@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
-import { IUser } from '../interfaces/book.interface';
+import { BookModel, IBook } from '../interfaces/book.interface';
 
-const bookSchema = new Schema<IUser>({
+const bookSchema = new Schema<IBook>({
   title: {
     type: String,
     require: true,
@@ -50,4 +50,25 @@ const bookSchema = new Schema<IUser>({
 });
 
 
-export const Book = model<IUser>("Book" , bookSchema)
+bookSchema.statics.borrowCopies = async function (
+  bookId: string,
+  quantity: number
+) {
+  const book = await this.findById(bookId);
+ 
+  if (!book) throw new Error('Book not found');
+
+  if (book.copies < quantity) {
+    throw new Error('Not enough copies available');
+  }
+
+  book.copies -= quantity;
+  if (book.copies === 0) {
+    book.available = false;
+    throw new Error('Not enough copies available');
+  }
+
+  await book.save();
+};
+
+export const Book = model<IBook, BookModel>('Book', bookSchema);

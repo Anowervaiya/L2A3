@@ -1,4 +1,6 @@
-export interface IUser {
+import { Model } from "mongoose";
+
+export interface IBook {
   title: string;
   author: string;
   genre:
@@ -13,4 +15,8 @@ export interface IUser {
   description: string;
   copies: number;
   available: boolean;
+}
+
+export interface BookModel extends Model<IBook> {
+  borrowCopies(bookId: string, quantity: number): Promise<void>;
 }

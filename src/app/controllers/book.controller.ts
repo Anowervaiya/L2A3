@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { Book } from '../models/book.model';
 export const bookRoutes = express.Router();
 
-bookRoutes.post('/', async (req: Request, res: Response) => {
+ bookRoutes.post('/', async (req: Request, res: Response) => {
   const body = req.body;
   console.log(body);
 
@@ -27,7 +27,7 @@ bookRoutes.get('/', async (req: Request, res: Response) => {
   res.status(201).json({
     success: true,
     message: 'All book retreived successfuly',
-    data : books,
+    data: books,
   });
 });
 
@@ -37,22 +37,21 @@ bookRoutes.get('/:bookId', async (req: Request, res: Response) => {
   res.status(201).json({
     success: true,
     message: 'single book retreived successfuly',
-   data : books,
+    data: books,
   });
 });
 
 bookRoutes.put('/:bookId', async (req: Request, res: Response) => {
   const bookId = req.params.bookId;
   const updatedBook = req.body;
-  const book = await Book.findByIdAndUpdate(bookId, updatedBook , {new :true});
+  const book = await Book.findByIdAndUpdate(bookId, updatedBook, { new: true });
 
   res.status(201).json({
     success: true,
     message: 'book updated successfuly',
-    data : book,
+    data: book,
   });
 });
-
 
 bookRoutes.delete('/:bookId', async (req: Request, res: Response) => {
   const bookId = req.params.bookId;
@@ -61,9 +60,6 @@ bookRoutes.delete('/:bookId', async (req: Request, res: Response) => {
   res.status(201).json({
     success: true,
     message: 'Book Deleted successfuly',
-    data : book,
+    data: book,
   });
 });
-
-
-
